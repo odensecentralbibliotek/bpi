@@ -5,7 +5,7 @@ core = 7.x
 projects[ding_content][type] = "module"
 projects[ding_content][download][type] = "git"
 projects[ding_content][download][url] = "git@github.com:ding2tal/ding_content.git"
-projects[ding_content][download][branch] = "mastery"
+projects[ding_content][download][branch] = "master"
 
 projects[date][subdir] = "contrib"
 projects[date][version] = "2.6"
