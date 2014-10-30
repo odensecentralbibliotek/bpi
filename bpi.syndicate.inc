@@ -245,6 +245,12 @@ function theme_bpi_search_results($variables) {
  * Implements hook_preprocess_HOOK().
  */
 function bpi_preprocess_bpi_search_results(&$variables) {
+  /*
+  * Ding_popup does not load the jquery ui in time. and it becomes unstable.
+  * if we load it on preprocess. it will be ready in browser when dialog is triggered.
+  */
+  drupal_add_library('system', 'ui.dialog');
+  
   $items = $variables['items'];
 
   $table_head = array(
