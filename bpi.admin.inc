@@ -14,7 +14,6 @@
 function bpi_admin_menu_block_page() {
   $item = menu_get_item();
   $content = system_admin_menu_block($item);
-
   if ($content) {
     $output = theme('admin_block_content', array('content' => $content));
   }

@@ -108,15 +108,17 @@ function bpi_menu() {
     'delivery callback' => 'ajax_deliver',
   ) + $menu['admin/bpi/delete/nojs/%node'];
 
-  $menu['admin/bpi/statistics/nojs'] = array(
+   $menu['admin/bpi/statistics/nojs'] = array(
     'page callback' => 'bpi_statistics',
     'page arguments' => array(3),
     'access arguments' => array('view bpi statistics'),
     'file' => 'bpi.statistics.inc',
-  );
+    'type' => MENU_SUGGESTED_ITEM
+   );
 
   $menu['admin/bpi/statistics/ajax'] = array(
     'delivery callback' => 'ajax_deliver',
+    'type' => MENU_SUGGESTED_ITEM
   ) + $menu['admin/bpi/statistics/nojs'];
 
   $menu['admin/bpi/images/nojs'] = array(
@@ -124,10 +126,12 @@ function bpi_menu() {
     'page arguments' => array(3),
     'access arguments' => array('bpi syndicate content'),
     'file' => 'bpi.images.inc',
+    'type' => MENU_SUGGESTED_ITEM
   );
 
   $menu['admin/bpi/images/ajax'] = array(
     'delivery callback' => 'ajax_deliver',
+    'type' => MENU_SUGGESTED_ITEM
   ) + $menu['admin/bpi/images/nojs'];
 
   $menu['admin/config/bpi'] = array(

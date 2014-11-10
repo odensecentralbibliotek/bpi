@@ -38,7 +38,6 @@ function admin_bpi_preview_ajax_callback($type, $bpi_id) {
     watchdog_exception('bpi', $e);
     return _admin_bpi_preview_output($type, t('Failed to fetch the article from BPI well.'));
   }
-
   $output = theme('bpi_preview_item', array('item' => $bpi_content));
 
   return _admin_bpi_preview_output($type, $output);
