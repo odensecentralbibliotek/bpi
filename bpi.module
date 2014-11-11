@@ -270,9 +270,11 @@ function bpi_form_node_form_alter(&$form, &$form_state, $form_id) {
 
       // Loop over materials from BPI inserting new default field for each.
       foreach ($bpi_content['material'] as $key => $material_number) {
+        $agency_id = variable_get('bpi_agency_id', '');
+        $mat_number = $agency_id . ':' . substr($material_number, -8);
         $form[$materials_field][$current_language][$key] = $default_field;
         $form[$materials_field][$current_language][$key]['#weight'] = $key;
-        $form[$materials_field][$current_language][$key]['ting_object_id']['#default_value'] = $material_number;
+        $form[$materials_field][$current_language][$key]['#default_value'] = $mat_number;
       }
     }
 
