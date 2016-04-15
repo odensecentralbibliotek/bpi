@@ -89,13 +89,20 @@ div.form-item-bpi-search-query {
 }
 
 .bpi-facet {
-	display: inline-block;
-	width: 50%;
-	box-sizing: border-box;
+	float:left;
+        width:100%;
 }
+#edit-bpi-facets-agency-id .form-item , #edit-bpi-facets-audience .form-item
+, #edit-bpi-facets-author .form-item , #edit-bpi-facets-category .form-item
+{
+    float:left;
+    margin: 5px;
 
+border: 1px solid black;
+    padding:15px;
+}
 .bpi-facet:nth-child(2n+1) {
-	padding-left: 1em;
+	//padding-left: 1em;
 }
 
 .bpi-facet .form-item {

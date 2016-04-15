@@ -38,11 +38,8 @@ define('BPI_ALL_FACETS_KEY', 'BPI_ALL_FACETS');
  * @ingroup forms
  */
 function bpi_syndicate_page_form($form, &$form_state) {
-    ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
   // Check configuration have been,
-    $old_php = bpi_service_is_configured();
+  $old_php = bpi_service_is_configured();
   if ($old_php) {
     drupal_add_library('system', 'drupal.ajax');
 
@@ -711,7 +708,7 @@ function bpi_build_search_facets(array &$form) {
       '#type' => 'fieldset',
       '#title' => t('Filters'),
       '#collapsible' => TRUE,
-      '#collapsed' => !_bpi_is_filter_applied(),
+      '#collapsed' => FALSE,
       '#attributes' => array(
         'class' => array(
           'bpi-filters',
@@ -768,10 +765,8 @@ function bpi_build_search_facets(array &$form) {
       }
 
       $facets_form[$id] = array(
-        '#type' => $type,
-        '#multiple' => $multiple,
-        '#chosen' => $multiple && $use_chosen,
-        '#size' => $multiple ? min(20, count($options)) : NULL,
+        '#type' =>  'select',
+ 
         '#title' => bpi_label_mapper($name) ? bpi_label_mapper($name) : $name,
         '#options' => $options,
         '#default_value' => $default_value,
