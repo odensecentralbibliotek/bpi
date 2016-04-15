@@ -307,7 +307,8 @@ function bpi_form_node_form_alter(&$form, &$form_state, $form_id) {
           drupal_set_message(t('These materials doesn\'t exists.'), 'error', FALSE);
         }
         $form[$materials_field][$current_language][$key]['#weight'] = $key;
-        $form[$materials_field][$current_language][$key]['ting_object_id']['#default_value'] = $id;
+        //$form[$materials_field][$current_language][$key]['ting_object_id']['#default_value'] = $id;
+        $form[$materials_field][$current_language][$key]['#default_value'] = $id;
       }
     }
 
