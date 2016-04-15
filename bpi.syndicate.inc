@@ -38,8 +38,12 @@ define('BPI_ALL_FACETS_KEY', 'BPI_ALL_FACETS');
  * @ingroup forms
  */
 function bpi_syndicate_page_form($form, &$form_state) {
+    ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
   // Check configuration have been,
-  if (bpi_service_is_configured()) {
+    $old_php = bpi_service_is_configured();
+  if ($old_php) {
     drupal_add_library('system', 'drupal.ajax');
 
     $query_form = array(
@@ -77,8 +81,8 @@ function bpi_syndicate_page_form($form, &$form_state) {
       '#type' => 'submit',
       '#value' => t('Search'),
     );
-
-    if (!empty(_bpi_get_current_search_phrase())) {
+    $old_php = _bpi_get_current_search_phrase();
+    if (!empty($old_php)) {
       $query_form['bpi_search']['bpi_search_actions']['bpi_search_reset'] = array(
         '#type' => 'item',
         '#markup' => l(t('Reset search'), current_path(), array(
@@ -203,8 +207,8 @@ function bpi_syndicate_page_form_submit(array $form, array &$form_state) {
   if (isset($values['bpi_search_amount']) && intval($values['bpi_search_amount']) > 0) {
     $bpi_query['amount'] = intval($values['bpi_search_amount']);
   }
-
-  if (isset($values['bpi_search_query']) && !empty(trim($values['bpi_search_query']))) {
+  $old_php = trim($values['bpi_search_query']);
+  if (isset($values['bpi_search_query']) && !empty($old_php)) {
     $bpi_query[BPI_SEARCH_PHRASE_KEY] = trim($values['bpi_search_query']);
   }
 
@@ -804,8 +808,8 @@ function bpi_build_search_facets(array &$form) {
         ),
       ),
     );
-
-    if (!empty(_bpi_get_current_filter())) {
+    $old_php = _bpi_get_current_filter();
+    if (!empty($old_php)) {
       $filter_form['bpi_actions']['reset_filter'] = array(
         '#type' => 'item',
         '#markup' => l(t('Reset filters'), current_path(), array(
