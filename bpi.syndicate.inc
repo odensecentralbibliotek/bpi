@@ -784,7 +784,7 @@ function bpi_build_search_facets(array &$form) {
 
       if ($name == 'agency_internal') {
         $options = array(
-          '' => t('All'),
+          '' => t(''),
         );
         if (isset($terms[0])) {
           $options['false'] = t('No');
@@ -797,7 +797,7 @@ function bpi_build_search_facets(array &$form) {
         $type = 'select';
       }
       if ($name == 'category' || $name == 'agency_id') {
-          $tmp = array('' => 'Alle');
+          $tmp = array('' => '');
           $options = $tmp + $options;
           /*
            * Check if a value is set. 0 index is always wrong in the BPI even if no default changes
@@ -811,6 +811,19 @@ function bpi_build_search_facets(array &$form) {
               }
           }
          //$options = array(150005 => 'Litteratur Siden', 500 => 'Test Mig', 1000 => '1000'); 
+      }
+      if($name == 'audience')
+      {
+          $tmp = array('' => '');
+          $options = $tmp + $options;
+          $data = drupal_get_query_parameters();
+          if(isset($data['filter']) && $name == 'agency_id')
+          {
+              if(!isset($data['filter']['agency_id']))
+              {
+                  $default_value = '';
+              }
+          }
       }
        if($name != 'logicalOperator')
        {
