@@ -538,6 +538,38 @@ function _bpi_get_current_filter() {
     $value['agencyInternal'] = $value['agency_internal'];
     unset($value['agency_internal']);
   }
+  /*
+   * Add support for non multiple fields.
+   * TODO: make list if fields that pr. default are not multiple and exclude
+   * based on it.
+   */
+  if(isset($value['agency_id']) && !is_array($value['agency_id']))
+  {
+      $tmp = array();
+      array_push($tmp,$value['agency_id']);
+      $value['agency_id'] = $tmp;
+  }
+   if(isset($value['audience']) && !is_array($value['audience']))
+  {
+      $tmp = array();
+      array_push($tmp,$value['audience']);
+      $value['audience'] = $tmp;
+  }
+   if(isset($value['author']) && !is_array($value['author']))
+  {
+      $tmp = array();
+      array_push($tmp,$value['author']);
+      $value['author'] = $tmp;
+  }
+    if(isset($value['category']) && !is_array($value['category']))
+  {
+      $tmp = array();
+      array_push($tmp,$value['category']);
+      $value['category'] = $tmp;
+  }
+  /*
+   * 
+   */
   return $value;
 }
 
@@ -745,6 +777,7 @@ function bpi_build_search_facets(array &$form) {
       $multiple = TRUE;
       $options = array();
       foreach ($terms as $term => $item) {
+          
         $options[$term] = $item['title'];
       }
       $default_value = _bpi_get_query_parameter(array('filter', $name), array());
@@ -763,20 +796,48 @@ function bpi_build_search_facets(array &$form) {
         $multiple = FALSE;
         $type = 'select';
       }
+      if ($name == 'category' || $name == 'agency_id') {
+          $tmp = array('' => 'Alle');
+          $options = $tmp + $options;
+          /*
+           * Check if a value is set. 0 index is always wrong in the BPI even if no default changes
+           */
+          $data = drupal_get_query_parameters();
+          if(isset($data['filter']) && $name == 'agency_id')
+          {
+              if(!isset($data['filter']['agency_id']))
+              {
+                  $default_value = array(0);
+              }
+          }
+         //$options = array(150005 => 'Litteratur Siden', 500 => 'Test Mig', 1000 => '1000'); 
+      }
+       if($name != 'logicalOperator')
+       {
+          $facets_form[$id] = array(
+            '#type' =>  'select',
+            '#title' => bpi_label_mapper($name) ? bpi_label_mapper($name) : $name,
+            '#options' => $options,
+            '#default_value' => $default_value,
+            //'#multiple' => TRUE,
+            '#prefix' => '<div class="bpi-facet bpi-facet-' . drupal_html_class($name) . '">',
+            '#suffix' => '</div>',
+          );
+       }
+       else
+       {
+           $facets_form[$id] = array(
+            '#type' =>  'select',
 
-      $facets_form[$id] = array(
-        '#type' =>  'select',
+            '#title' => bpi_label_mapper($name) ? bpi_label_mapper($name) : $name,
+            '#options' => $options,
+            '#default_value' => $default_value,
+
+            '#prefix' => '<div class="bpi-facet bpi-facet-' . drupal_html_class($name) . '">',
+            '#suffix' => '</div>',
+          );
+       }
  
-        '#title' => bpi_label_mapper($name) ? bpi_label_mapper($name) : $name,
-        '#options' => $options,
-        '#default_value' => $default_value,
-        '#attributes' => array(
-          'data-placeholder' => $multiple ? t('Pick some values') : t('Pick a value'),
-          'data-no-matches' => t('Nothing matches'),
-        ),
-        '#prefix' => '<div class="bpi-facet bpi-facet-' . drupal_html_class($name) . '">',
-        '#suffix' => '</div>',
-      );
     }
 
     // Add logical operator.
