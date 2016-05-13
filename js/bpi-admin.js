@@ -21,7 +21,7 @@
 
     $('#bpi-syndicate-page-form select').change(function() {
       // Trigger jQuery submit to make sure that any on submit handlers are run.
-      $(this.form).submit();
+      //$(this.form).submit();
     });
   });
 })(jQuery);
