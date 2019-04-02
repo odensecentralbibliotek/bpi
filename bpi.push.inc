@@ -156,16 +156,23 @@ function bpi_convert_to_bpi($node, $category, $audience, $with_images = FALSE, $
   if ($with_refs) {
     $items = field_get_items('node', $node, variable_get('bpi_field_materials', ''));
     foreach ($items as $item) {
-      if (!empty($item['ting_object_id'])) {
-        $id = $item['ting_object_id'];
-        // Filter out id's with "katalog" PID, as they only makes sens on
-        // current site.
-        if (!preg_match('/katalog/', $id)) {
-          $materials_drupal[] = $id;
+if (!empty($item['ting_object_id'])) {
+$id = $item['ting_object_id'];
+// Filter out id's with "katalog" PID, as they only makes sens on
+// current site.
+if (!preg_match('/katalog/', $id)) {
+$materials_drupal[] = $id;
+}
+            }
+            // Added fix if ting_object_id above doesn't exists (to do why?)
+            if (!empty($item['identifier'])) {
+                $id = $item['identifier'];
+                if (!preg_match('/katalog/', $id)) {
+                    $materials_drupal[] = $id;
+                }
+            }
         }
-      }
-    }
-  }
+}
 
   if (!empty($body_field) && isset($body_field['#items'][0]['safe_value'])) {
     $body = $body_field['#items'][0]['safe_value'];
