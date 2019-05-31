@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * BPI main module file.
@@ -64,7 +65,7 @@ function bpi_menu() {
     'description' => 'Syndicate content from the well.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('bpi_syndicate_page_form'),
-    'access callback' => TRUE,
+    'access callback' => 'bpi_access',
     'file' => 'bpi.syndicate.inc',
   );
 
@@ -92,10 +93,7 @@ function bpi_menu() {
 
   $menu['admin/bpi/statistics/ajax'] = array(
     'delivery callback' => 'ajax_deliver',
-    'page arguments' => array(3),
-    'access arguments' => array('view bpi statistics'),
-    'file' => 'bpi.statistics.inc',
-  );
+  ) + $menu['admin/bpi/statistics/nojs'];
 
   $menu['admin/bpi/images/nojs'] = array(
     'page callback' => 'bpi_syndicate_images',
@@ -106,12 +104,8 @@ function bpi_menu() {
 
   $menu['admin/bpi/images/ajax'] = array(
     'delivery callback' => 'ajax_deliver',
-    'page callback' => 'bpi_syndicate_images',
-    'page arguments' => array(3),
-    'access arguments' => array('bpi syndicate content'),
-    'file' => 'bpi.images.inc',    
-  );
-  
+  ) + $menu['admin/bpi/images/nojs'];
+
   $menu['admin/config/bpi'] = array(
     'title' => 'BPI',
     'description' => 'BPI Related Settings',
@@ -307,8 +301,10 @@ function bpi_form_node_form_alter(&$form, &$form_state, $form_id) {
           drupal_set_message(t('These materials doesn\'t exists.'), 'error', FALSE);
         }
         $form[$materials_field][$current_language][$key]['#weight'] = $key;
-        //$form[$materials_field][$current_language][$key]['ting_object_id']['#default_value'] = $id;
-        $form[$materials_field][$current_language][$key]['#default_value'] = $id;
+        $form[$materials_field][$current_language][$key]['ting_object_id']['#default_value'] = $id;
+      }
+      if(!is_array($bpi_content['material'])) {
+          $form[$materials_field][$current_language][0]['#default_value'] = $bpi_content['material'];
       }
     }
 
