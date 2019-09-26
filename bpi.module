@@ -148,34 +148,13 @@ function bpi_menu() {
 function bpi_access() {
   global $user;
   // Disallow if user doesn't have permission to syndicate bpi content.
-  if (!user_access('bpi syndicate content')) {
-    return FALSE;
+  if (user_access('bpi syndicate content')) {
+    return TRUE;
   }
-
-  // Get roles that are allowed to create content from BPI according to
-  // Workflow settings.
-  /*$record = NULL;
-  try {
-    $query = db_select('workflow_transitions', 'w');
-    $query->fields('w');
-    $query->condition('w.name', '_creation_to_created_bpi');
-    $record = $query->execute()->fetchAssoc();
-  }
-  catch (PDOException $e) {
-    bpi_error_message($e, 'error');
-  }
-
-  $access = FALSE;
-  $roles = unserialize($record['roles']);
-  foreach ($user->roles as $id => $user_role) {
-    if (in_array($id, $roles)) {
-      $access = TRUE;
+else {
+  return FALSE;
     }
-  }*/
-  $access = TRUE;
-  return $access;
 }
-
 /**
  * Implements hook_permission().
  */
