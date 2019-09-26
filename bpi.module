@@ -154,7 +154,7 @@ function bpi_access() {
 
   // Get roles that are allowed to create content from BPI according to
   // Workflow settings.
-  $record = NULL;
+  /*$record = NULL;
   try {
     $query = db_select('workflow_transitions', 'w');
     $query->fields('w');
@@ -171,7 +171,8 @@ function bpi_access() {
     if (in_array($id, $roles)) {
       $access = TRUE;
     }
-  }
+  }*/
+  $access = TRUE;
   return $access;
 }
 
