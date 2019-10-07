@@ -282,6 +282,7 @@ function bpi_form_node_form_alter(&$form, &$form_state, $form_id) {
         }
         $form[$materials_field][$current_language][$key]['#weight'] = $key;
         $form[$materials_field][$current_language][$key]['ting_object_id']['#default_value'] = $id;
+        $form[$materials_field][$current_language][$key]['#default_value'] = $id;
       }
       if(!is_array($bpi_content['material'])) {
           $form[$materials_field][$current_language][0]['#default_value'] = $bpi_content['material'];
