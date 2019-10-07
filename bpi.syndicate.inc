@@ -38,6 +38,8 @@ define('BPI_ALL_FACETS_KEY', 'BPI_ALL_FACETS');
  * @ingroup forms
  */
 function bpi_syndicate_page_form($form, &$form_state) {
+  drupal_add_css('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css','external');
+  drupal_add_js('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js','external');
   // Check configuration have been,
   $old_php = bpi_service_is_configured();
   if ($old_php) {
